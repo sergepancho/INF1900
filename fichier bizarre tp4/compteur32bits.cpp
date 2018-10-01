@@ -10,7 +10,7 @@
 #define F_CPU 80000000
 #include <util/delay.h>
 #include "memoire_24.h"
-#include "memoire_24.cpp"
+
 	
 
 int main()
@@ -26,25 +26,36 @@ Memoire24CXXX mem;
  
 		//attenuer_vert();
 
-		attenuer_rouge();
-			
-	}
+	
 //inserer le fichier de dependance
 //ecriture(0x00,00101010);//*commmenbt ecrire la valeur de p sur 8 bits utilise t<il la table askyy?
 //_delay_ms(5);
 //ici il  faut signakler un changement d<adrese?
 char[] text =  "*P*O*L*Y*T*E*C*H*N*I*Q*U*E* *M*O*N*T*R*E*A*L*";
-
-for ( int i = 0 ;i <30; i++)
+char[] lu;
+for ( int i = 0 ;i <text.size(); i++)
 {
-	mem.ecriture(i+8,text[i]);//*voir si l<adresse sera +8
+	mem.ecriture(i,text[i]);//*voir si l<adresse sera +8
 	_delay_ms(5);
 }
 Lecture(0x00,0x00,8bi)
-
+/*
 for ( int i = 0 ;i <30; i++)
 {
 	if(mem.lecture(i+8,text[i])==text[i])//faire en sorte que l<adress commence a 0
+	  PORTA=0b10;
+	 else
+	  PORTA=0b01;
+	
+	
+	//*voir si l<adresse sera +8
+	
+}*/
+mem.lecture(lu,text,text.size());//faire en sorte que l<adress commence a 0
+for ( int i = 0 ;i <text.size(); i++)
+{
+	
+	if(lu[i]==char[i])
 	  PORTA=0b10;
 	 else
 	  PORTA=0b01;

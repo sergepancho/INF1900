@@ -15,7 +15,7 @@
 
 int main()
 {
-
+Memoire24CXXX mem;
   DDRA = 0xff; // PORT A est en mode sortie
   DDRB = 0xff; // PORT B est en mode sortie
   DDRC = 0xff; // PORT C est en mode sortie
@@ -30,8 +30,8 @@ int main()
 			
 	}
 //inserer le fichier de dependance
-ecriture(0x00,00101010);//*commmenbt ecrire la valeur de p sur 8 bits utilise t<il la table askyy?
-_delay_ms(5);
+//ecriture(0x00,00101010);//*commmenbt ecrire la valeur de p sur 8 bits utilise t<il la table askyy?
+//_delay_ms(5);
 //ici il  faut signakler un changement d<adrese?
 char[] text =  "*P*O*L*Y*T*E*C*H*N*I*Q*U*E* *M*O*N*T*R*E*A*L*";
 
@@ -41,6 +41,18 @@ for ( int i = 0 ;i <30; i++)
 	_delay_ms(5);
 }
 Lecture(0x00,0x00,8bi)
+
+for ( int i = 0 ;i <30; i++)
+{
+	if(mem.lecture(i+8,text[i])==text[i])//faire en sorte que l<adress commence a 0
+	  PORTA=0b10;
+	 else
+	  PORTA=0b01;
+	
+	
+	//*voir si l<adresse sera +8
+	
+}
 /*Vous devrez faire un programme qui écrit la chaîne de caractères
  « *P*O*L*Y*T*E*C*H*N*I*Q*U*E* *M*O*N*T*R*E*A*L*»
   suivi d'un 0x00 en mémoire externe. La chaîne commencera à l'adresse

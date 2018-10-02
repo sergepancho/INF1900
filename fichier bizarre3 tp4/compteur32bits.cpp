@@ -5,11 +5,11 @@
  * Description: Ceci est un exemple simple de programme 
  * Version: 1.1
  */
-#include <iostream>
+
 #include <avr/io.h>
 #define F_CPU 80000000
 #include <util/delay.h>
-
+#include <memoire_24.h>
 //PLACER UN CAVALIER EST IMORTANT VOIR ESCTION QUI PARLE DES CAVALIERS
 //LE CAVALIER EST UN CIRCUIT AVEC DES BROCHES PLACE A CHAQUE EXTREMITE DE LA CONNEXION
 //PLACER UN CAVALIER VEUT DIRE RELIER ELECTRIQUEMENT CE CIRCUIT
@@ -68,7 +68,7 @@ int main()
 
 
 initialisationUART();
-Memoire24CXXX mem=Memoire24CXXX ();
+Memoire24CXXX mem;
   DDRA = 0xff; // PORT A est en mode sortie
   DDRB = 0xff; // PORT B est en mode sortie
   DDRC = 0xff; // PORT C est en mode sortie
@@ -77,7 +77,7 @@ Memoire24CXXX mem=Memoire24CXXX ();
   for(;;)  // boucle sans fin
 	{
  
-    char mots[21] = "Le robot en INF1900\n";
+    uint8_t mots[21] = "Le robot en INF1900\n";
 
 uint8_t i, j;
 
@@ -91,12 +91,19 @@ transmissionUART ( mots[j] );
 
 }
 
+for ( int i = 0 ;i <sizeof(mots); i++)
+{
+	mem.ecriture(i,mots[i]);//*voir si l<adresse sera +8
+	_delay_ms(5);
+}
+
 for (uint16_t j=0; j < 20; j++ ) 
 {
-      uint8_t lu=  mem.lecture(j,&mots[j]);
-      std::cout<< lu<<endl;//possible?
-        if(lu=FF)
-        break;
+	while(mem.lecture(j,&mots[j])!='FF')
+       mem.lecture(j,&mots[j]);
+      //std::cout<< lu<<endl;//possible?
+       // if(lu=='FF')
+      //  break;
 
 }
 	return 0; 

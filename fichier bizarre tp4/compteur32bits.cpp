@@ -38,7 +38,6 @@ for ( int i = 0 ;i <sizeof(text); i++)
 	mem.ecriture(i,text[i]);//*voir si l<adresse sera +8
 	_delay_ms(5);
 }
-
 //Lecture(0x00,0x00,8bi)
 /*
 for ( int i = 0 ;i <30; i++)
@@ -56,7 +55,7 @@ for ( int i = 0 ;i <30; i++)
 for ( int i = 0 ;i <sizeof(text); i++)
 {
 	
-	  if(mem.lecture(i,&text[i])==mem.ecriture(i,text[i]))
+	  if(mem.lecture(i,&text[i])==text[i])
 	  vrai=true;
 	  else
 	  vrai=false;
